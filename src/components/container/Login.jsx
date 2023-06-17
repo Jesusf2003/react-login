@@ -1,37 +1,51 @@
 import React, { useState } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
+
+const contentStyle = {
+  marginTop: '50px',
+  textAlign: 'center',
+};
 
 const LoginComponent = () => {
 
-  const [user, setUser] = useState("");
-  const [pswd, setPswd] = useState("");
-  let [dataInput, setDataInput] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const submitThis = () => {
-    if (user === "user" && pswd === "1234") {
-      dataInput = {username: user, password: pswd}
-      console.log("Bienvenido: "+ dataInput.username);
+  function handleEmailField(event) {
+    return setEmail(event.target.value);
+  }
+
+  function handlePasswordField(event) {
+    return setPassword(event.target.value);
+  }
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    if (email === "users1" && password === "1234") {
+      alert("Bienvenido")
     } else {
-      console.log("Ingrese un valor");
+      alert("Vuelva a intentarlo")
     }
   }
 
   return (
-    <div>
-      <form className="form-control">
-        <div className="row">
-          <div className="col">
-            <label className="form-control" htmlFor="user">Usuario</label>
-            <label className="form-control" htmlFor="password">Contraseña</label>
-          </div>
-          <div className="col">
-            <input className="form-control field" type="text" id="user" placeholder="Inserte un usuario" value={user} onChange={(e) => setUser(e.target.value)} />
-            <input className="form-control field" type="password" id="password" placeholder="Inserte una contraseña" value={pswd} onChange={(e) => setPswd(e.target.value)} />
-          </div>
+    <div style={contentStyle}>
+      <div className="card">
+        <h4 className="card-title" style={{marginTop: '10px'}}>Login</h4>
+        <div className="card-body">
+          <Form id="login">
+            <FormGroup controlId="formEmail">
+              <FormControl type="email" value={email} onChange={handleEmailField} placeholder="Email"></FormControl>
+            </FormGroup>
+            <FormGroup controlId="formPassword">
+              <FormControl type="password" value={password} onChange={handlePasswordField} placeholder="Password"></FormControl>
+            </FormGroup>
+            <FormGroup controlId="formBtn">
+              <Button type="submit" onClick={handleFormSubmit}>Login</Button>
+            </FormGroup>
+          </Form>
         </div>
-        <button type="submit" className="btn btn-primary" onSubmit={submitThis()}>Acceder</button>
-      </form>
+      </div>
     </div>
   );
 }
